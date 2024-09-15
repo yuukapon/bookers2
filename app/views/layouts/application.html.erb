@@ -1,0 +1,115 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bookers2</title>
+  
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <!-- FontAwesome -->
+  <script src="https://kit.fontawesome.com/516ecc6ad4.js" crossorigin="anonymous"></script>
+
+  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+  <header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <span>
+        <%= link_to "Bookers", root_path, class: 'navbar-brand' %>
+      </span>
+
+      <!-- Toggler button for mobile -->
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <% if user_signed_in? %>
+            <!-- ログイン済みのヘッダー -->
+            <li class="nav-item">
+              <%= link_to user_path(current_user.id), class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-house"></i>
+                Home
+              <% end %>
+            </li>
+            
+            <li class="nav-item">
+              <%= link_to users_path, class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-users"></i>
+                Users
+              <% end %>
+            </li>
+            
+            <li class="nav-item">
+              <%= link_to books_path, class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-book-open"></i>
+                Books
+              <% end %>
+            </li>
+            
+            <li class="nav-item">
+              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-right-from-bracket"></i>
+                Log out
+              <% end %>
+            </li>
+          <% else %>
+            <!-- ログイン前のヘッダー -->
+            <li class="nav-item">
+              <%= link_to root_path, class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-house"></i>                
+                Home
+              <% end %>
+            </li>
+            
+            <li class="nav-item">
+              <%= link_to about_path, class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-link"></i>
+                About
+              <% end %>
+            </li>
+            
+            <li class="nav-item">
+              <%= link_to new_user_registration_path, class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-user-plus"></i>
+                Sign up
+              <% end %>
+            </li>
+            
+            <li class="nav-item">
+              <%= link_to new_user_session_path, class: 'nav-link text-white text-light' do %>
+                <i class="fa-solid fa-right-to-bracket"></i>
+                Log in
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div> <!-- container -->
+  </nav>
+  </header>
+    <!--フラッシュメッセージ-->
+  <div>
+    <% flash.each do |key, value| %>
+      <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+  </div>
+
+
+  <%= yield %>
+
+  <footer>
+    <div class="container mt-5">
+      <div class="row">
+        <div class="mx-auto">
+          <p>CopyRight Infratop.inc</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>

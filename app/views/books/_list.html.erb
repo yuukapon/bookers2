@@ -1,0 +1,40 @@
+<!-- インスタンス変数s → ローカル変数 -->
+    <!-- ユーザーの詳細 -->
+    
+    <div class="col-md-3">
+      <h2>User info</h2>
+      <%= link_to user_path(user.id) do %>
+       <%= image_tag user.get_profile_image(100, 100) %>
+      <% end %>
+
+      <table class="table">
+        <tr>
+          <th>name</th>
+          <th><%= user.name %></th>
+        </tr>
+        <tr>
+         <th>introduction</th>
+         <th><%= user.introduction %></th>
+        </tr>
+      </table>
+
+      <!-- editボタン -->
+      
+      <%= link_to edit_user_path(user), class: "btn btn-outline-secondary btn-block" do %>
+        <% if user.id == current_user.id %>
+          <i class="fa-solid fa-user-gear"></i>
+        <% end %>
+      <% end %>
+      
+       <!-- 新規投稿 -->
+      <h2 class="mt-3">New book</h2>
+
+      <%= form_with model: book_new, local: true do |f| %>
+        <label>Title</label>
+        <%= f.text_field :title, class: "form-control" %>
+
+        <label>Opinion</label>
+        <%= f.text_area :body, class: "form-control" %>
+        <%= f.submit "Create Book", class: "btn btn-success" %>
+      <% end %>
+    </div>
